@@ -3,11 +3,11 @@
     <%- include('header') %>
     <body>
         <div class="container">
-            <h1><%= pageTitle %></h1>
-            <form method="POST" action="/blogs">
-                <%- include('_form_fields') %>
-            </form>
-            <%- include('footer') %>
+          <h1><%= pageTitle %></h1>
+          <form method="POST" action="/blogs/<%= blog.id %>?_method=PUT">
+            <%- include('_form_fields') %>
+          </form>
+          <%- include('footer') %>
         </div>
         <script>
             window.onload = function() {

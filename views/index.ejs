@@ -2,11 +2,12 @@
 <html>
     <%- include('header') %>
     <body>
+        <div class="container">
+            <h1><%= pageTitle %></h1>
+            <p>Welcome to blog application.</p>
+            <p> Start by creating your <sub>own</sub> blog: <a href="/blogs/create" class="btn btn-success">Create Blog</a> or view <a href="/blogs" class="btn btn-info" title="Go to all blogs">All Blogs</a></p>
 
-        <h1><%= pageTitle %></h1>
-        <p>Welcome to blog application. Start by creating your blog: <a href="/blogs/create" class="btn btn-primary">Create Blog</a></p>
-        <a href="/blogs" class="btn btn-info" title="Go to all blogs">All Blogs</a>
-
-        <%- include('footer') %>    
+            <%- include('footer') %>
+        </div>    
     </body>
 </html>

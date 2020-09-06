@@ -7,7 +7,8 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-text"><%= blog.body %></p>
-                    <a href="/blogs" class="btn btn-info">All Blogs</a>
+                    <a href="/blogs" class="btn btn-secondary">Back</a>
+                    <a href="/blogs/edit/<%= blog.id %>" class="btn btn-info">Edit</a>
                     <form action="/blogs/<%= blog.id %>?_method=DELETE" method="POST" class="d-inline">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
@@ -15,6 +16,6 @@
             </div>
 
             <%- include('footer') %>
-        </div>    
+        </div>
     </body>
 </html>

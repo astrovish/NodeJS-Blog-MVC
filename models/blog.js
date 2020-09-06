@@ -22,7 +22,8 @@ const blogSchema = new mongoose.Schema({
         desc: "Slug for pretty url & SEO purpose",
         trim: true,
         type: String,
-        required: true
+        required: true,
+        unique: true
     }
 });
 
@@ -30,7 +31,7 @@ blogSchema.pre("validate", function(next) {
     if( this.title ) {
         this.slug = slugify(this.title, {
             strict: true,
-            unique: true
+            lower: true
         })
     }
     next();

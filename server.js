@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 const methodOverride = require("method-override");
+const { default: slugify } = require("slugify");
 
 // creating an express application
 const app = express();
@@ -10,7 +11,12 @@ const app = express();
 // path to the config file
 dotenv.config({path: './config/config.env'});
 
-mongoose.connect(process.env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.DB_URI, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true,
+    useFindAndModify: false
+})
 .then(result => {
     // listening server on to assign port
     const PORT = process.env.PORT || 3500;
@@ -46,7 +52,8 @@ app.get("/", (req, res) => {
 // create blog
 app.get("/blogs/create", (req, res) => {
     res.render("create", {
-        pageTitle: "Create New Blog"
+        pageTitle: "Create New Blog",
+        blog: {title: '', body: ''}
     })
 })
 
@@ -63,6 +70,34 @@ app.post("/blogs", async (req, res) => {
         res.status(201).redirect("/blogs");
     } catch(e) {
         console.log(e.message);
+        res.send(e.message);
+    }
+})
+
+// edit blog
+app.get("/blogs/edit/:id", async (req, res) => {
+    try {
+        const blog = await Blog.findById(req.params.id);
+        res.render("edit", {
+            pageTitle: "Edit Blog",
+            blog
+        })
+    } catch(e) {
+        res.send(e.message);
+    }
+})
+
+app.put("/blogs/:id", async (req, res) => {
+    try {
+        let blog = {
+            title: req.body['blog-title'],
+            body: req.body['blog-body'],
+            userId: 55,
+            slug: slugify(req.body['blog-title'], {strict: true, lower:true})
+        }
+        await Blog.findByIdAndUpdate(req.params.id, blog);
+        res.redirect("/blogs/");
+    } catch (e) {
         res.send(e.message);
     }
 })

@@ -2,10 +2,11 @@
 <html>
     <%- include('header') %>
     <body>
+        <div class="container">
+            <h1><%= pageTitle %></h1>
+            <p>You seems to be lost. Don't worry, we will help you. Go to <a href="/" class="btn btn-primary">Home Page</a> or <a href="/blogs" class="btn btn-info" title="Go to all blogs">All Blogs</a></p>
 
-        <h1><%= pageTitle %></h1>
-        <p>Sorry, you seems to be lost. No problem we will help you. Go to <a href="/" class="btn btn-primary">Home Page</a> or <a href="/blogs" class="btn btn-info" title="Go to all blogs">All Blogs</a></p>
-
-        <%- include('footer') %>    
+            <%- include('footer') %>
+        </div>
     </body>
 </html>
